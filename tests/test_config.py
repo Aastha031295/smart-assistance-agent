@@ -1,20 +1,22 @@
 """
 Tests for the configuration module.
 """
+
 import os
+
 import pytest
 from pydantic import ValidationError
 
-from src.config import Settings, LogLevel, GroqModel, SearchProvider
+from src.config import GroqModel, LogLevel, SearchProvider, Settings
 
 
 def test_settings_defaults():
     """Test that default settings are loaded correctly."""
     # Set minimal required env vars
     os.environ["GROQ_API_KEY"] = "test_key"
-    
+
     settings = Settings()
-    
+
     # Check defaults
     assert settings.app_name == "Car Repair Assistant"
     assert settings.debug is False
@@ -40,9 +42,9 @@ def test_settings_override():
     os.environ["SESSION_EXPIRY_MINUTES"] = "120"
     os.environ["MAX_HISTORY_LENGTH"] = "100"
     os.environ["SIMILARITY_THRESHOLD"] = "0.75"
-    
+
     settings = Settings()
-    
+
     # Check overridden values
     assert settings.app_name == "Custom App Name"
     assert settings.debug is True
@@ -64,35 +66,37 @@ def test_google_search_validation():
     os.environ["SEARCH_PROVIDER"] = "google"
     os.environ["SEARCH_API_KEY"] = "search_key"
     os.environ.pop("GOOGLE_CSE_ID", None)
-    
+
     # Should raise validation error
     with pytest.raises(ValidationError) as excinfo:
         Settings()
-    
-    assert "google_cse_id must be provided when using Google search" in str(excinfo.value)
-    
+
+    assert "google_cse_id must be provided when using Google search" in str(
+        excinfo.value
+    )
+
     # Now add CSE ID
     os.environ["GOOGLE_CSE_ID"] = "cse_id"
     settings = Settings()
-    
+
     assert settings.google_cse_id == "cse_id"
 
 
 def test_invalid_enum_values():
     """Test validation for invalid enum values."""
     os.environ["GROQ_API_KEY"] = "test_key"
-    
+
     # Invalid log level
     os.environ["LOG_LEVEL"] = "INVALID"
     with pytest.raises(ValidationError):
         Settings()
-    
+
     # Invalid model name
     os.environ["LOG_LEVEL"] = "INFO"
     os.environ["MODEL_NAME"] = "invalid-model"
     with pytest.raises(ValidationError):
         Settings()
-    
+
     # Invalid search provider
     os.environ["MODEL_NAME"] = "llama3-70b-8192"
     os.environ["SEARCH_PROVIDER"] = "invalid-provider"
@@ -105,8 +109,8 @@ def test_optional_settings():
     os.environ["GROQ_API_KEY"] = "test_key"
     os.environ.pop("SEARCH_API_KEY", None)
     os.environ.pop("GOOGLE_CSE_ID", None)
-    
+
     settings = Settings()
-    
+
     assert settings.search_api_key is None
     assert settings.google_cse_id is None
