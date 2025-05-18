@@ -1,14 +1,7 @@
-"""
-Dockerfile for Car Repair Assistant application.
-"""
+FROM python:3.12-slim
 
-# Use Python 3.10 slim image as base
-FROM python:3.10-slim
-
-# Set work directory
 WORKDIR /app
 
-# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     POETRY_VERSION=1.7.0 \
@@ -34,16 +27,11 @@ ENV PATH="${PATH}:/root/.local/bin"
 COPY pyproject.toml ./
 COPY poetry.lock* ./
 
-# Install dependencies
 RUN poetry install --no-dev --no-root
-
-# Copy the rest of the application
 COPY . .
 
-# Create directory for the vector database
 RUN mkdir -p ./chroma_db && chmod 777 ./chroma_db
 
-# Expose the port Streamlit will run on
 EXPOSE 8501
 
 # Create a non-root user to run the application
