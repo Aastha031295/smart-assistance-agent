@@ -10,8 +10,12 @@ import time
 from pathlib import Path
 from typing import Optional
 
-from langchain_community.document_loaders import (CSVLoader, DirectoryLoader,
-                                                  PyPDFLoader, TextLoader)
+from langchain_community.document_loaders import (
+    CSVLoader,
+    DirectoryLoader,
+    PyPDFLoader,
+    TextLoader,
+)
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
