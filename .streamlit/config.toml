@@ -1,0 +1,72 @@
+"""
+Streamlit configuration file.
+
+This file configures the Streamlit application interface 
+and server behavior. Place it in a .streamlit directory.
+"""
+
+[theme]
+# Primary accent color for interactive elements
+primaryColor = "#FF4B4B"
+
+# Background color for the main content area
+backgroundColor = "#FFFFFF"
+
+# Background color for sidebar and most interactive widgets
+secondaryBackgroundColor = "#F0F2F6"
+
+# Color used for almost all text
+textColor = "#262730"
+
+# Font family for all text in the app, except code blocks
+# Accepted values (serif | sans serif | monospace)
+font = "sans-serif"
+
+[server]
+# Max size, in megabytes, for files uploaded with the file_uploader
+maxUploadSize = 10
+
+# Enables support for Cross-Origin Resource Sharing (CORS)
+enableCORS = false
+
+# Enables protection against cross-site request forgery
+enableXsrfProtection = true
+
+# Whether to enable the file watcher functionality
+runOnSave = true
+
+# Headers to send with every HTTP response
+# headersSafeForCORS = ["Access-Control-Allow-Origin: *"]
+
+[browser]
+# Whether to send usage statistics to Streamlit
+gatherUsageStats = false
+
+# Port where the server will listen for browser connections
+serverPort = 8501
+
+# Automatically opens the app in a browser when executed
+# serverAddress = "localhost"
+
+[global]
+# By default, Streamlit checks if the Python module has been installed.
+# With develop mode, it doesn't. Set to false when deploying to production.
+developmentMode = false
+
+[client]
+# Controls whether uncaught app exceptions are displayed in the browser
+showErrorDetails = true
+
+# How many seconds to wait for the next keep-alive message from the server
+# caching.maxEntries = 500
+
+[runner]
+# Allows you to type cleanup code in a single place
+# magicEnabled = true
+
+# Hides any deprecation warnings that come from Streamlit itself
+# warningsEnabled = true
+
+[mapbox]
+# Configure Streamlit to use Mapbox map
+# token = ""
