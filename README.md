@@ -83,15 +83,6 @@ smart-assistance-agent/
    - Simulated responses when API keys are missing
    - Sample data when vector database is missing
 
-## Development Guidelines
-
-### Adding New Features
-
-1. Create a new module in the `src/` directory
-2. Update the appropriate test in the `tests/` directory
-3. Modify `app.py` to integrate the new feature
-4. Update documentation in the README
-
 ### Testing
 
 Run tests with Poetry:
